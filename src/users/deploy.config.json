@@ -1,0 +1,17 @@
+{
+  "tasks": {
+    "deploy": "cp ../../import_map.json ./; deployctl deploy"
+  },
+  "importMap": "./import_map.json",
+  "deploy": {
+    "project": "703825b9-fb3a-495b-9486-c968fc9f43a7",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [
+      "../_shared",
+      "../users"
+    ],
+    "entrypoint": "../users/index.deploy.ts"
+  }
+}

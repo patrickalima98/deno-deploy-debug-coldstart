@@ -1,0 +1,47 @@
+{
+  "imports": {
+    "std/": "https://deno.land/std@0.205.0/",
+    "hono/": "https://deno.land/x/hono@v3.9.2/",
+    "fs/": "https://deno.land/std@/fs/",
+    "dotenv": "npm:dotenv",
+    "drizzle-orm": "npm:drizzle-orm@0.29.3",
+    "zod": "https://deno.land/x/zod@v3.22.4/mod.ts",
+    "#db": "./src/_shared/database/index.ts",
+    "#db/schemas": "./src/_shared/database/schema.ts",
+    "#handlers/": "./src/handlers/",
+    "#middlewares/": "./src/_shared/middlewares/",
+    "#contracts/": "./src/_shared/contracts/",
+    "#common/": "./src/common/",
+    "#utils/": "./src/_shared/utils/",
+    "rambda": "npm:rambda",
+    "dayjs": "npm:dayjs",
+    "drizzle-typebox": "npm:drizzle-typebox",
+    "@sinclair/typebox": "npm:@sinclair/typebox",
+    "drizzle-orm/pg-proxy": "npm:drizzle-orm/pg-proxy",
+    "postgres": "https://deno.land/x/postgres@v0.17.0/mod.ts",
+    "upstash_redis": "https://esm.sh/@upstash/redis@1.28.0"
+  },
+  "tasks": {
+    "start": "deno run --allow-net --allow-read --allow-env src/server.ts",
+    "dev": "deno run --allow-net --watch --allow-read --allow-env src/server.ts",
+    "migrate": "deno run -A npm:drizzle-kit generate:sqlite --out ./drizzle/migrations --breakpoints --schema=./src/database/schema.ts",
+    "db:seed": "deno run -A drizzle/seeders/users.ts",
+    "studio": "npx drizzle-kit studio --port 3333",
+    "build:static_router": "deno run --allow-net --allow-read --allow-write --allow-env src/router-builder.ts",
+    "deploy": "deno task build:static_router && deployctl deploy --project=quick-crow-20 ./src/server.ts",
+    "cp:env": "cp .env.vault ./src/users",
+    "deploy:users": "cp .env.vault ./src; cd ./src; deployctl deploy --config=./users/deploy.config.json --import-map=./import_map.json --prod; cd ../",
+    "deploy:gateway": "cp .env.vault ./src; cd ./src; deployctl deploy --config=./gateway/deploy.config.json --import-map=./import_map.json --prod; cd ../"
+  },
+  "deploy": {
+    "project": "703825b9-fb3a-495b-9486-c968fc9f43a7",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [
+      "./_shared",
+      "./users"
+    ],
+    "entrypoint": "src/users/index.deploy.ts"
+  }
+}

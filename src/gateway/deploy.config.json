@@ -1,0 +1,16 @@
+{
+  "tasks": {
+    "deploy": "cp ../../import_map.json ./; deployctl deploy"
+  },
+  "importMap": "./import_map.json",
+  "deploy": {
+    "project": "nnp-nacct-gat-mod-stg",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [
+      "../gateway/index.deploy.ts"
+    ],
+    "entrypoint": "../gateway/index.deploy.ts"
+  }
+}

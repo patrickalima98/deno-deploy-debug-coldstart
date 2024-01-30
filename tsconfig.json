@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "inlineSourceMap": true,
+    "isolatedModules": false,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "jsx": "react",
+    "lib": ["deno.window"],
+    "module": "esnext",
+    "moduleDetection": "force",
+    "strict": false,
+    "target": "esnext",
+    "checkJs": false,
+    "useDefineForClassFields": true,
+    "types": [
+      "./src/types.ts"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "#handlers/*": [
+        "./src/handlers/*"
+      ],
+      "#db": ["./src/config/database.ts"],
+      "#utils/*": [
+        "./src/utils/*"
+      ],
+      "#contracts/*": [
+        "./src/contracts/*"
+      ],
+    },
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
